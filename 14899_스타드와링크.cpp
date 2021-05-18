@@ -54,9 +54,9 @@ int diffPower()
 	else return linkTeamSum - starTeamSum;
 }
 
-void combi(int idx)
+void combi(int idx, int cnt)
 {
-	if (idx > N/2) {
+	if (cnt > N/2) {
 		ans = MIN(ans, diffPower());
 		return;
 	}
@@ -64,7 +64,7 @@ void combi(int idx)
 	for (int i = idx; i <= N; i++) {
 		if (visitied[i] == 1)	continue;
 		visitied[i] = 1;
-		combi(idx + 1);
+		combi(i + 1, cnt + 1);
 		visitied[i] = 0;
 	}
 }
@@ -75,10 +75,11 @@ int main()
 	int test_case = 1;
 	/*freopen("14899_input.txt", "r", stdin);
 	cin >> test_case;*/
-	for (int i = 0; i < test_case; i++) {
+	for (int i = 1; i <= test_case; i++) {
 		input();
-		combi(1);
+		combi(1, 1);
 		cout << ans << endl;
+		//cout <<"#" << i << " " << ans << endl;
 	}
 	
 	return 0;
