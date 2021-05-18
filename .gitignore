@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+/x64/Debug
+/.vs/LetsGoSamSungDIT/v16
+/LetsGoSamSungDIT.vcxproj.user
+/LetsGoSamSungDIT.vcxproj.filters
+/LetsGoSamSungDIT.vcxproj
+/LetsGoSamSungDIT.sln
