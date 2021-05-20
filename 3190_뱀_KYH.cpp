@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const int max_num = 110 + 1;
+const int max_num = 300 + 1;
 const int wall = 8;
 const int apple = 1;
 const int snake = 2;
@@ -21,7 +21,7 @@ typedef struct Dic {
 
 Pos ap[max_num];
 Pos sn [max_num];
-Dic dic[max_num];
+Dic dic[10000 + 1];
 
 int front = 0;
 int last = 0;
@@ -66,10 +66,7 @@ void input()
 		map[0][i] = map[i][0] = map[N + 1][i] = map[i][N + 1] = wall;
 	}
 
-	sLen = 0;
-
-	cin >> L;
-	
+	cin >> L;	
 	for (int i = 0; i < L; i++) {
 		cin >> dic[i].time >> dic[i].d;
 	}
@@ -78,19 +75,22 @@ void input()
 
 void sol()
 {
-	int curR = 1; int curC = 1;
-	int curD = 1;
-	int retTime = 0; int time = 1; int dicIdx = 0;
-	
+	int curR = 1; int curC = 1; int curD = 1;
+	int dicIdx = 0;
+	sLen = 0;
+
 	map[curR][curC] = snake;
-	time = dic[dicIdx].time;
 	push(curR, curC);
+
+	char nd = dic[dicIdx].d;
+	int time =dic[dicIdx++].time;
+
 	while (1) {
+		sLen++;
+
 		int nr = curR + dr[curD]; int nc = curC + dc[curD];
 
-		if (nr < 0 || nc < 0 || nr > N + 1 || nc > N + 1)	break;
-		sLen++;
-		if (map[nr][nc] == wall) break;
+		if (nr <= 0 || nc <= 0 || nr >= N + 1 || nc >= N + 1)	break;
 		if ((map[nr][nc] == snake)  && !(nr = sn[last].r && sn[last].c == nc))	break;
 		
 		if (map[nr][nc] != apple) {	
@@ -98,26 +98,27 @@ void sol()
 			map[tail.r][tail.c] = 0;
 		}
 
-		map[nr][nc] = snake;
 		push(nr, nc);
+		map[nr][nc] = snake;
+		curR = nr; curC = nc;
 
 		if (time == sLen) {
-			char nd = dic[dicIdx++].d;
-			time = dic[dicIdx].time;
-			
-			if (nd == 'D') ++curD %= 4;
-			else if (nd == 'L') curD = (curD+3) % 4;
-		}
+			if (nd == 'D') curD = (curD + 1) % 4;
+			else if (nd == 'L') curD = (curD + 3) % 4;
 
-		curR = nr; curC = nc;
+			if (dicIdx < L) {
+				nd = dic[dicIdx].d;
+				time = dic[dicIdx++].time;
+			}
+		}
 	}
 }
 
 int main()
 {
 	int test_case = 1;
-	freopen("3130_input.txt", "r", stdin);
-	cin >> test_case;
+	//freopen("3130_input.txt", "r", stdin);
+	//cin >> test_case;
 
 	for (int i = 1; i <= test_case; i++) {
 		input();
