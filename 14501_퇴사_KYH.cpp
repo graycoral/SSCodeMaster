@@ -35,17 +35,18 @@ int sol()
 {
 	int ans = 0;
 	for (int i = 0; i < (1 << N); i++) {
-		int tmpSum = 0; int day = 0;
+		int tmpSum = 0;
 		for (int j = 0; j < N; j++) {
-			if (i & (1 << j))
-			{	
-				/*if (j > N)	continue;
-				j += (counsel[j].time - 1);*/
-				cout << setw(3) << counsel[j].cost;
-				tmpSum += counsel[j].cost;
+			if ((i & (1 << j)))
+			{
+				int cost = counsel[j].cost;
+				j += (counsel[j].time - 1);
 				
+				if (j < N) {
+					tmpSum += cost;
+					cout << setw(3) << counsel[j].cost;
+				}
 			}
-			day--;
 		}
 		ans = MAX(ans, tmpSum);
 		cout << endl;
