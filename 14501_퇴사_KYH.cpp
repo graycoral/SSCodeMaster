@@ -69,9 +69,31 @@ void DFS(int idx, int sum)
 	}
 }
 
-void dp_sol()
+int dp_sol()
 {
+	int dp_max_num = 0;
+	int dp[max_num];
 
+	for (int i = 0; i < max_num; i++) {
+		dp[i] = 0;
+	}
+	dp_max_num = 0;
+	dp[0] = counsel[0].cost;
+	
+	for (int i = 1; i < N; i++) {
+		for (int j = 1; j < i; j++) {
+			if (i - j >= counsel[j].time -1) {
+				dp[i] = MAX(counsel[i].cost + dp[j], dp[i]);
+			}
+				
+		}
+		//dp_max_num = MAX(dp_max_num, dp[i]);
+	}
+
+	for (int i = 0; i < N; i++) {
+		dp_max_num = MAX(dp_max_num, dp[i]);
+	}
+	return dp_max_num;
 }
 
 int main()
@@ -85,7 +107,8 @@ int main()
 		input();
 		/*DFS(0, 0);
 		cout << ans << endl;*/
-		cout << sol() << endl;
+		//cout << sol() << endl;
+		cout << dp_sol() << endl;
 	}
 	return 0;
 }
