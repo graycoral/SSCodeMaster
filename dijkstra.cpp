@@ -28,23 +28,25 @@ void input()
 
 void dijstra(int start)
 {
-    int dp[N + 1];
-    int visited[N+1];
     int min;
-    int v;
+    int v = 0;
+	int dp[max_num];
+	int visited[max_num];
 
-    dp[start] = 0;
+
     for(int i = 1; i <=N; i++) {
         dp[i] = map[start][i];
         visited[i] = 0;
     }
+
+	dp[start] = 0;
 
     for(int i = 1; i <=N ; i++) {
         min = INF;
 
         for(int j = 1; j<=N; j++) {
             if(visited[j] == 0 && min > dp[j]){
-                dp[j] = min;
+                min = dp[j]; 
                 v = j;
             }
         }
