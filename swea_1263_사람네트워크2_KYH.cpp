@@ -7,6 +7,10 @@ const int mam_num = 1000+1;
 
 int map[mam_num][mam_num];
 int N;
+int dp[mam_num];
+int visited[mam_num];
+int min;
+int v;
 
 void input()
 {
@@ -16,11 +20,6 @@ void input()
 
 void dijkstra(int start)
 {
-    int dp[N+1];
-    int visited[N+1];
-    int min;
-    int v;
-
     for(int i = 1; i <= N; i++) {
         min = INF;
 

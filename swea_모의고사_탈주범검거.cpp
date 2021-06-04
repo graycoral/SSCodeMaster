@@ -18,14 +18,14 @@ typedef struct Pos {
 Pos q[max_num * max_num];
 int front, last;
 
-int direction[7][4] = {
-    {0, 1, 2, 3},
-    {0, 1, -1, -1},
-    {-1, -1, 2, 3},
-    {-1, 1, 2, -1},
-    {0, -1, 2, -1},
-    {0, -1, -1, 3},
-    {-1, 1, -1, 3}
+int direction[8][4] = {
+    {1, 1, 1, 1},
+    {1, 1, -1, -1},
+    {-1, -1, 1, 1},
+    {-1, 1, 1, -1},
+    {1, -1, 1, -1},
+    {1, -1, -1, 1},
+    {-1, 1, -1, 1}
 };
 
 void input()
@@ -69,102 +69,133 @@ int empty()
 
 void sol()
 {
-    int t = 0;
+    int t = 1;
     push(startR, startC, t++);
-    while(!empty() || t < L) {
+    while(!empty()) {
         int timlFlag = 0;
         Pos cur = pop();
 
-        if(map[cur.r][cur.r] == 1) {
+        if(map[cur.r][cur.c] == 1) {
             for(int i = 0; i < 4; i++) {
                 int nr = cur.r+dr[i];
                 int nc = cur.c+dc[i];
-                if(direction[map[cur.r][cur.r]][i] == -1)   continue;
+				if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+                if(direction[map[nr][nc]][i] == -1)   continue;
                 push(nr, nc, t);
                 timlFlag =1;
             }
             if(timlFlag) t++;
         }
-        else if(map[cur.r][cur.r] == 2) {
+        else if(map[cur.r][cur.c] == 2) {
            for(int i = 0; i < 2; i++) {
                 int nr = cur.r+dr[i];
                 int nc = cur.c+dc[i];
-                if(direction[map[cur.r][cur.r]][i] == -1)   continue;
+				if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+                if(direction[map[nr][nc]][i] == -1)   continue;
                 push(nr, nc, t);
+				timlFlag = 1;
             }
             if(timlFlag) t++;
         }
-        else if(map[cur.r][cur.r] == 3) {
+        else if(map[cur.r][cur.c] == 3) {
             for(int i = 2; i < 4; i++) {
                 int nr = cur.r+dr[i];
                 int nc = cur.c+dc[i];
-                if(direction[map[cur.r][cur.r]][i] == -1)   continue;
+				if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+                if(direction[map[nr][nc]][i] == -1)   continue;
                 push(nr, nc, t);
+				timlFlag = 1;
             }
             if(timlFlag) t++;
         }
-        else if(map[cur.r][cur.r] == 4) {
-
-            if(direction[map[cur.r][cur.r]][0]) {
-                push(cur.r + dr[0], cur.c + dc[0], t);
+        else if(map[cur.r][cur.c] == 4) {
+			int nr = cur.r + dr[0];
+			int nc = cur.c + dc[0];
+			if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+            if(direction[map[nr][nc]][1]) {
+                push(nr, nc, t);
                 timlFlag =1;
             }
 
-            if(direction[map[cur.r][cur.r]][3]){
-                push(cur.r + dr[3], cur.c + dc[3], t);
-                timlFlag =1;
-            }
-            if(timlFlag) t++;
-
-
-        }
-        else if(map[cur.r][cur.r] == 5) {
-            if(direction[map[cur.r][cur.r]][1]) {
-                push(cur.r + dr[1], cur.c + dc[1], t);
-                timlFlag =1;
-            }
-
-            if(direction[map[cur.r][cur.r]][3]){
-                push(cur.r + dr[3], cur.c + dc[3], t);
+			nr = cur.r + dr[3];
+			nc = cur.c + dc[3];
+			if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+            if(direction[map[nr][nc]][2]){
+                push(nr, nc, t);
                 timlFlag =1;
             }
             if(timlFlag) t++;
         }
-        else if(map[cur.r][cur.r] == 6) {
-           if(direction[map[cur.r][cur.r]][1]) {
-                push(cur.r + dr[1], cur.c + dc[1], t);
+        else if(map[cur.r][cur.c] == 5) {
+			int nr = cur.r + dr[1];
+			int nc = cur.c + dc[1];
+			if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+            if(direction[map[nr][nc]][0]) {
+                push(nr, nc, t);
                 timlFlag =1;
             }
 
-            if(direction[map[cur.r][cur.r]][2]){
-                push(cur.r + dr[2], cur.c + dc[2], t);
-                timlFlag =1;
-            }
+			nr = cur.r + dr[3];
+			nc = cur.c + dc[3];
+			if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+			if (direction[map[nr][nc]][2]) {
+				push(nr, nc, t);
+				timlFlag = 1;
+			}
             if(timlFlag) t++;
         }
-        else if(map[cur.r][cur.r] == 7) {
-                     if(direction[map[cur.r][cur.r]][0]) {
-                push(cur.r + dr[0], cur.c + dc[0], t);
-                timlFlag =1;
-            }
+        else if(map[cur.r][cur.c] == 6) {
+			int nr = cur.r + dr[1];
+			int nc = cur.c + dc[1];
+			if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+			if (direction[map[nr][nc]][0]) {
+				push(nr, nc, t);
+				timlFlag = 1;
+			}
 
-            if(direction[map[cur.r][cur.r]][2]){
-                push(cur.r + dr[2], cur.c + dc[2], t);
-                timlFlag =1;
-            }
-            if(timlFlag) t++;
+			nr = cur.r + dr[2];
+			nc = cur.c + dc[2];
+			if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+			if (direction[map[nr][nc]][3]) {
+				push(nr, nc, t);
+				timlFlag = 1;
+			}
+			if (timlFlag) t++;
+       }
+        else if(map[cur.r][cur.c] == 7) {
+			int nr = cur.r + dr[0];
+			int nc = cur.c + dc[0];
+			if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+			if (direction[map[nr][nc]][1]) {
+				push(nr, nc, t);
+				timlFlag = 1;
+			}
+
+			nr = cur.r + dr[2];
+			nc = cur.c + dc[2];
+			if (nr >= N || nc >= M || nr < 0 || nc < 0)    continue;
+			if (direction[map[nr][nc]][3]) {
+				push(nr, nc, t);
+				timlFlag = 1;
+			}
+			if (timlFlag) t++;
         }
     }
-    ans =t ;
+
+	for (int r = 0; r < N; r++) {
+		for (int c = 0; c < M; c++) {
+			if (visted[r][c] <= L && visted[r][c] > 0) ans++;
+		}
+	}
 }
 
 int main()
 {
     int test_case = 1;
 
-    freopen("탈주범검거_input.txt", "r", stdin);
+    freopen("swea_모의고사_탈주범검거.txt", "r", stdin);
     cin >> test_case;
-    for(int i = 1; i<=test_case; i++){
+    for(int i = 1; i<=test_case; i++) {
         input();
         sol();
         cout << "#" << i << " " << ans <<endl;
