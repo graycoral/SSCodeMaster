@@ -32,3 +32,26 @@ vector<int> bellmanford(int src)
 		return upper;
 	}
 }
+
+struct edge {
+	int there;
+	int cost;
+};
+
+edge adj[MAX_V][[MAX_V]];
+
+void bf(int src)
+{
+	int upper[MAX_V] = { INF };
+	bool updated = false;
+	upper[src] = 0;
+
+	for (int i = 0; i < V; i++) {
+		updated = false;
+		for (int here = 0; here < V; here++) {
+			for (int j = 0; j < adj[here,].size(); j++) {
+
+			}
+		}
+	}
+}

@@ -158,17 +158,19 @@ int sol()
 int main()
 {
 	int test_case = 1;
-	freopen("swea_4335_input.txt", "r", stdin);
+	//freopen("swea_4335_input.txt", "r", stdin);
 	
-	cin >> test_case;
-	for (int i = 1; i <= test_case; i++) {
-		input();
-		//DFS(0, 10000, 10000, 0);
-		//DFS_TEST(0);
-		//cout << "===============" << endl;
-		//cout << "#" << i << " " << max_height << endl;
-		cout << sol() << endl;
-		
-	}
+	//cin >> test_case;
+	//for (int i = 1; i <= test_case; i++) {
+	//	input();
+	//	//DFS(0, 10000, 10000, 0);
+	//	//DFS_TEST(0);
+	//	//cout << "===============" << endl;
+	//	//cout << "#" << i << " " << max_height << endl;
+	//	cout << sol() << endl;
+	//	
+	//}
+
+	powerset(5, 3);
 	return 0;
 }
