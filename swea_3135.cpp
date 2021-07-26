@@ -51,9 +51,24 @@ struct TRIE {
 
 		return retCnt;
 	}
-
-	
 };
+
+TRIE* t = new TRIE();
+
+void init(void) {
+	
+}
+
+void insert(int buffer_size, char* buf) {
+	t->insert(buf);
+}
+
+int query(int buffer_size, char* buf) {
+	int retCnt = t->query(buffer_size, buf, 0);
+	return retCnt;
+}
+
+
 
 void del(TRIE* n)
 {

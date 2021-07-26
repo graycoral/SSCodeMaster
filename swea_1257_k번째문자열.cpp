@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 const int al_num = 27;
@@ -82,7 +83,7 @@ int main()
 		cin >> K >> arr;
 		TRIE* node = new TRIE();
 		for (int len = 1; len < strlen(arr); len++) {
-			for (int pos = 0; pos + len <= strlen(arr); pos++) {
+			for (int pos = 0; pos + len <= static_cast<int>(strlen(arr)); pos++) {
 				char tmp[410] = { NULL};
 				int idx = 0;
 				for (int c = pos; c < pos + len; c++) {
